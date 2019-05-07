@@ -291,7 +291,7 @@ User-visible changes worth mentioning.
 ### Backward incompatible changes
 
 - [#448] Removes `doorkeeper_for` helper. Now we use
-  `before_action :doorkeeper_authorize!`.
+  `before_filter :doorkeeper_authorize!`.
 - [#469] Allow client applications to restrict the set of allowable scopes.
   Fixes #317. `oauth_applications` relation needs a new `scopes` string column,
   non nullable, which defaults to an empty string. To add the column run:

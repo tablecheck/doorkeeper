@@ -17,7 +17,7 @@ end
 describe 'doorkeeper authorize filter' do
   context 'accepts token code specified as' do
     controller do
-      before_action :doorkeeper_authorize!
+      before_filter :doorkeeper_authorize!
 
       def index
         render plain: 'index'
@@ -64,7 +64,7 @@ describe 'doorkeeper authorize filter' do
 
   context 'defined for all actions' do
     controller do
-      before_action :doorkeeper_authorize!
+      before_filter :doorkeeper_authorize!
 
       include ControllerActions
     end
@@ -98,7 +98,7 @@ describe 'doorkeeper authorize filter' do
 
   context 'defined with scopes' do
     controller do
-      before_action -> { doorkeeper_authorize! :write }
+      before_filter -> { doorkeeper_authorize! :write }
 
       include ControllerActions
     end
@@ -137,7 +137,7 @@ describe 'doorkeeper authorize filter' do
 
   context 'when custom unauthorized render options are configured' do
     controller do
-      before_action :doorkeeper_authorize!
+      before_filter :doorkeeper_authorize!
 
       include ControllerActions
     end
@@ -217,7 +217,7 @@ describe 'doorkeeper authorize filter' do
     end
 
     controller do
-      before_action -> { doorkeeper_authorize! :write }
+      before_filter -> { doorkeeper_authorize! :write }
 
       include ControllerActions
     end

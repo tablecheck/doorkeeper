@@ -205,18 +205,18 @@ See language files in [the I18n repository](https://github.com/doorkeeper-gem/do
 ### Ruby on Rails controllers
 
 To protect your controllers (usual one or `ActionController::API`) with OAuth,
-you just need to setup `before_action`s specifying the actions you want to
+you just need to setup `before_filter`s specifying the actions you want to
 protect. For example:
 
 ``` ruby
 class Api::V1::ProductsController < Api::V1::ApiController
-  before_action :doorkeeper_authorize! # Require access token for all actions
+  before_filter :doorkeeper_authorize! # Require access token for all actions
 
   # your actions
 end
 ```
 
-You can pass any option `before_action` accepts, such as `if`, `only`,
+You can pass any option `before_filter` accepts, such as `if`, `only`,
 `except`, and others.
 
 ### Grape endpoints
@@ -295,8 +295,8 @@ And in your controllers:
 
 ```ruby
 class Api::V1::ProductsController < Api::V1::ApiController
-  before_action -> { doorkeeper_authorize! :public }, only: :index
-  before_action only: [:create, :update, :destroy] do
+  before_filter -> { doorkeeper_authorize! :public }, only: :index
+  before_filter only: [:create, :update, :destroy] do
     doorkeeper_authorize! :admin, :write
   end
 end
@@ -312,8 +312,8 @@ time, use multiple `doorkeeper_authorize!`, for example:
 
 ```ruby
 class Api::V1::ProductsController < Api::V1::ApiController
-  before_action -> { doorkeeper_authorize! :public }, only: :index
-  before_action only: [:create, :update, :destroy] do
+  before_filter -> { doorkeeper_authorize! :public }, only: :index
+  before_filter only: [:create, :update, :destroy] do
     doorkeeper_authorize! :admin
     doorkeeper_authorize! :write
   end
@@ -359,7 +359,7 @@ controller that returns the resource owner instance:
 
 ``` ruby
 class Api::V1::CredentialsController < Api::V1::ApiController
-  before_action :doorkeeper_authorize!
+  before_filter :doorkeeper_authorize!
   respond_to    :json
 
   # GET /me.json
